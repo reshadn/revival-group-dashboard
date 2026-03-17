@@ -6,372 +6,197 @@
 <title>Revival Group — Sales Dashboard</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--blue:#4a9fd4;--green:#00c87a;--yellow:#f59e0b;--red:#ef4444;--dark:#07080f;--s1:#0d1117;--s2:#111827;--border:#1e2a3a;--text:#e2e8f0;--muted:#64748b}
-body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:var(--dark);color:var(--text);min-height:100vh}
-header{padding:24px 32px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--s1)}
-.logo{font-size:15px;font-weight:700;letter-spacing:3px;color:var(--blue)}
-.header-right{display:flex;align-items:center;gap:16px}
-.live-badge{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--green)}
-.live-dot{width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
-.date{font-size:13px;color:var(--muted)}
-main{padding:32px}
-.section-title{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+:root{--blue:#4a9fd4;--green:#00c87a;--yellow:#f59e0b;--red:#ef4444;--dark:#07080f;--s1:#0d1117;--border:#1e2a3a;--text:#e2e8f0;--muted:#64748b}
+body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:var(--dark);color:var(--text);min-height:100vh;padding:40px 48px}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px}
+.logo{font-size:13px;font-weight:700;letter-spacing:3px;color:var(--blue)}
+.updated{font-size:12px;color:var(--muted)}
 
 /* KPI ROW */
 .kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:32px}
-.kpi{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:24px}
-.kpi .label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
-.kpi .value{font-size:32px;font-weight:700;color:#fff}
+.kpi{background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:20px 24px}
+.kpi .label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.kpi .value{font-size:28px;font-weight:700;color:#fff;line-height:1}
 .kpi .sub{font-size:12px;color:var(--muted);margin-top:4px}
-.kpi .trend{font-size:12px;margin-top:8px}
-.up{color:var(--green)}
-.down{color:var(--red)}
 
-/* PIPELINE */
-.pipeline-grid{display:grid;grid-template-columns:2fr 1fr;gap:24px;margin-bottom:32px}
-.panel{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:24px}
-.panel-title{font-size:14px;font-weight:600;color:#fff;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center}
-.panel-title span{font-size:11px;color:var(--muted);font-weight:400}
-
-/* CLIENT TABLE */
+/* PIPELINE TABLE */
+.section-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.table-wrap{background:var(--s1);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:28px}
 table{width:100%;border-collapse:collapse}
-th{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);padding:10px 14px;text-align:left;border-bottom:1px solid var(--border)}
-td{padding:14px 14px;font-size:13px;border-bottom:1px solid #0a0f16;vertical-align:middle}
+th{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:14px 20px;text-align:left;background:rgba(7,8,15,0.5);border-bottom:1px solid var(--border)}
+td{padding:16px 20px;border-bottom:1px solid #0a0f16;font-size:14px;vertical-align:top}
 tr:last-child td{border-bottom:none}
-tr:hover td{background:rgba(13,17,23,0.6)}
-.client-name{font-weight:600;color:#fff;font-size:14px}
-.client-sub{font-size:11px;color:var(--muted);margin-top:2px}
-
-/* STATUS BADGES */
-.badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:0.5px}
-.badge-discovery{background:rgba(245,158,11,0.1);color:#f59e0b;border:1px solid rgba(245,158,11,0.25)}
-.badge-proposal{background:rgba(74,159,212,0.1);color:#4a9fd4;border:1px solid rgba(74,159,212,0.25)}
-.badge-active{background:rgba(0,200,122,0.1);color:#00c87a;border:1px solid rgba(0,200,122,0.25)}
-.badge-building{background:rgba(139,92,246,0.1);color:#a78bfa;border:1px solid rgba(139,92,246,0.25)}
-.badge-dot{width:5px;height:5px;border-radius:50%;background:currentColor}
-
-/* TIER BADGE */
-.tier{font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:4px;font-weight:600}
-.tier-pilot{background:rgba(100,116,139,0.15);color:#94a3b8}
-.tier-pro{background:rgba(74,159,212,0.1);color:var(--blue)}
-.tier-business{background:rgba(139,92,246,0.1);color:#a78bfa}
-.tier-enterprise{background:rgba(0,200,122,0.1);color:var(--green)}
-
-/* MRR */
+tr:hover td{background:rgba(255,255,255,0.015)}
+.client-name{font-size:15px;font-weight:600;color:#fff;margin-bottom:3px}
+.client-sub{font-size:12px;color:var(--muted)}
 .mrr{font-size:15px;font-weight:700;color:#fff}
-.arr{font-size:11px;color:var(--muted)}
+.arr{font-size:12px;color:var(--muted);margin-top:2px}
 
-/* NEXT ACTION */
-.action{font-size:12px;color:var(--muted);max-width:180px;line-height:1.5}
-.action.urgent{color:#f59e0b}
+/* BADGES */
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;white-space:nowrap}
+.badge-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.badge-discovery{background:rgba(245,158,11,0.1);color:var(--yellow)}
+.badge-discovery .badge-dot{background:var(--yellow)}
+.badge-proposal{background:rgba(74,159,212,0.1);color:var(--blue)}
+.badge-proposal .badge-dot{background:var(--blue)}
+.badge-building{background:rgba(100,116,139,0.1);color:#94a3b8}
+.badge-building .badge-dot{background:#94a3b8}
+.badge-active{background:rgba(0,200,122,0.1);color:var(--green)}
+.badge-active .badge-dot{background:var(--green)}
+
+/* TIER */
+.tier{font-size:11px;font-weight:600;padding:3px 8px;border-radius:4px}
+.tier-pro{background:rgba(74,159,212,0.1);color:var(--blue)}
+.tier-business{background:rgba(0,200,122,0.1);color:var(--green)}
+.tier-enterprise{background:rgba(139,92,246,0.1);color:#a78bfa}
+
+/* ACTION */
+td.action{font-size:13px;color:#94a3b8;max-width:280px;line-height:1.5}
+td.urgent{color:var(--yellow)}
 
 /* PRIORITY */
-.priority-high{color:var(--red);font-size:12px;font-weight:600}
-.priority-med{color:#f59e0b;font-size:12px;font-weight:600}
-.priority-low{color:var(--muted);font-size:12px}
+.priority-high{font-size:12px;font-weight:600;color:var(--red)}
+.priority-med{font-size:12px;font-weight:600;color:var(--yellow)}
+.priority-low{font-size:12px;color:var(--muted)}
 
-/* SIDEBAR PANELS */
-.sidebar{display:flex;flex-direction:column;gap:16px}
-.mini-panel{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:20px}
-.mini-panel h4{font-size:13px;font-weight:600;color:#fff;margin-bottom:14px}
-.task-item{display:flex;justify-content:space-between;align-items:flex-start;padding:10px 0;border-bottom:1px solid #0a0f16;gap:12px}
+/* BOTTOM GRID */
+.bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.panel{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:24px}
+.panel-title{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+
+/* TASKS */
+.task-item{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:12px 0;border-bottom:1px solid #0a0f16}
 .task-item:last-child{border-bottom:none}
-.task-text{font-size:12px;color:var(--muted);line-height:1.5;flex:1}
-.task-tag{font-size:10px;padding:2px 8px;border-radius:10px;white-space:nowrap;font-weight:600}
-.tag-today{background:rgba(239,68,68,0.1);color:#ef4444}
-.tag-week{background:rgba(245,158,11,0.1);color:#f59e0b}
-.tag-done{background:rgba(0,200,122,0.1);color:#00c87a}
+.task-text{font-size:14px;color:var(--text);line-height:1.5}
+.task-tag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0}
+.tag-today{background:rgba(239,68,68,0.1);color:var(--red)}
+.tag-week{background:rgba(74,159,212,0.1);color:var(--blue)}
 
-/* FUNNEL */
-.funnel-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #0a0f16}
-.funnel-item:last-child{border-bottom:none}
-.funnel-label{font-size:12px;color:var(--muted);width:90px}
-.funnel-bar-wrap{flex:1;background:#0a0f16;border-radius:4px;height:8px;overflow:hidden}
-.funnel-bar{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--blue),var(--green))}
-.funnel-val{font-size:12px;color:#fff;font-weight:600;width:60px;text-align:right}
-
-/* BOTTOM ROW */
-.bottom-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
-.activity-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #0a0f16}
+/* ACTIVITY */
+.activity-item{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid #0a0f16;align-items:flex-start}
 .activity-item:last-child{border-bottom:none}
-.a-dot{width:8px;height:8px;border-radius:50%;background:var(--blue);margin-top:5px;flex-shrink:0}
-.a-text{font-size:12px;color:var(--muted);line-height:1.5}
-.a-time{font-size:11px;color:#334155;margin-top:2px}
+.a-dot{width:8px;height:8px;border-radius:50%;margin-top:5px;flex-shrink:0}
+.a-text{font-size:13px;color:var(--text);margin-bottom:3px}
+.a-time{font-size:11px;color:var(--muted)}
+
+/* TOTAL ROW */
+.total-row td{background:rgba(74,159,212,0.04);border-top:1px solid var(--border) !important}
+.total-row .client-name{color:var(--blue)}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="logo">REVIVAL GROUP</div>
-  <div class="header-right">
-    <div class="live-badge"><div class="live-dot"></div>Live Dashboard</div>
-    <div class="date">Monday, March 16, 2026</div>
-  </div>
-</header>
-
-<main>
+<div class="header">
+  <div class="logo">REVIVAL GROUP — SALES DASHBOARD</div>
+  <div class="updated">Updated: March 16, 2026</div>
+</div>
 
 <!-- KPIs -->
-<div class="section-title">Pipeline Overview</div>
 <div class="kpi-row">
-  <div class="kpi">
-    <div class="label">Pipeline ARR</div>
-    <div class="value">$660K</div>
-    <div class="sub">If all 5 prospects close</div>
-    <div class="trend up">↑ New this week: AAMCO</div>
-  </div>
-  <div class="kpi">
-    <div class="label">Active MRR</div>
-    <div class="value">$0</div>
-    <div class="sub">No signed clients yet</div>
-    <div class="trend" style="color:var(--yellow)">First close = $5K–$25K MRR</div>
-  </div>
-  <div class="kpi">
-    <div class="label">Open Proposals</div>
-    <div class="value">4</div>
-    <div class="sub">AAMCO, MPKCG, Bloom, Al-Misbaah</div>
-  </div>
-  <div class="kpi">
-    <div class="label">Discovery Stage</div>
-    <div class="value">2</div>
-    <div class="sub">AAMCO (tomorrow), Eventive</div>
-    <div class="trend up">↑ AAMCO meeting Mar 17</div>
-  </div>
-  <div class="kpi">
-    <div class="label">Avg Deal Size</div>
-    <div class="value">$132K</div>
-    <div class="sub">ARR across pipeline</div>
-    <div class="trend up">↑ Enterprise avg: $210K</div>
-  </div>
+  <div class="kpi"><div class="label">Pipeline ARR</div><div class="value">$462K</div><div class="sub">+ Bloom GCI upside</div></div>
+  <div class="kpi"><div class="label">Active MRR</div><div class="value">$0</div><div class="sub">Pre-revenue</div></div>
+  <div class="kpi"><div class="label">Open Proposals</div><div class="value">5</div><div class="sub">Across 6 prospects</div></div>
+  <div class="kpi"><div class="label">Hot This Week</div><div class="value">4</div><div class="sub">AAMCO · Bloom · MAM · MPKCG</div></div>
+  <div class="kpi"><div class="label">Avg Deal ARR</div><div class="value">$77K</div><div class="sub">Base retainer only</div></div>
 </div>
 
-<!-- MAIN PIPELINE TABLE + SIDEBAR -->
-<div class="pipeline-grid">
-  <div class="panel">
-    <div class="panel-title">Client Pipeline <span>5 active opportunities</span></div>
-    <table>
-      <thead>
-        <tr>
-          <th>Client</th>
-          <th>Tier</th>
-          <th>MRR / ARR</th>
-          <th>Status</th>
-          <th>Next Action</th>
-          <th>Priority</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <div class="client-name">AAMCO Oakland</div>
-            <div class="client-sub">Auto repair · Sayed Mousumi</div>
-          </td>
-          <td><span class="tier tier-business">Business</span></td>
-          <td>
-            <div class="mrr">$5,000</div>
-            <div class="arr">$60K ARR</div>
-          </td>
-          <td><span class="badge badge-discovery"><span class="badge-dot"></span>Discovery</span></td>
-          <td class="action urgent">📅 Meeting tomorrow Mar 17 — proposal PDF ready</td>
-          <td class="priority-high">🔴 HIGH</td>
-        </tr>
-        <tr>
-          <td>
-            <div class="client-name">MPKCG</div>
-            <div class="client-sub">HR+Finance consulting · Abdul Shamari</div>
-          </td>
-          <td><span class="tier tier-enterprise">Enterprise</span></td>
-          <td>
-            <div class="mrr">$10,000</div>
-            <div class="arr">$120K ARR</div>
-          </td>
-          <td><span class="badge badge-proposal"><span class="badge-dot"></span>Proposal Sent</span></td>
-          <td class="action urgent">📧 Follow up — proposal sent, no response yet</td>
-          <td class="priority-high">🔴 HIGH</td>
-        </tr>
-        <tr>
-          <td>
-            <div class="client-name">Al-Misbaah</div>
-            <div class="client-sub">AI-native CRM/ERP · Ima Yasir</div>
-          </td>
-          <td><span class="tier tier-enterprise">Enterprise</span></td>
-          <td>
-            <div class="mrr">$25,000</div>
-            <div class="arr">$300K ARR</div>
-          </td>
-          <td><span class="badge badge-proposal"><span class="badge-dot"></span>Proposal Pending</span></td>
-          <td class="action urgent">📧 Follow-up email drafted — needs approval to send</td>
-          <td class="priority-high">🔴 HIGH</td>
-        </tr>
-        <tr>
-          <td>
-            <div class="client-name">Bloom Real Estate Group</div>
-            <div class="client-sub">AI lead gen engine · 3-agent pilot</div>
-          </td>
-          <td><span class="tier tier-business">Business</span></td>
-          <td>
-            <div class="mrr">$5,000</div>
-            <div class="arr">$60K ARR</div>
-          </td>
-          <td><span class="badge badge-proposal"><span class="badge-dot"></span>Proposal Pending</span></td>
-          <td class="action">Finalize proposal — existing deck in Drive needs refresh</td>
-          <td class="priority-med">🟡 MED</td>
-        </tr>
-        <tr>
-          <td>
-            <div class="client-name">Eventive</div>
-            <div class="client-sub">E2E ops automation · Sarmad co-build</div>
-          </td>
-          <td><span class="tier tier-enterprise">Enterprise</span></td>
-          <td>
-            <div class="mrr">$10,000</div>
-            <div class="arr">$120K ARR</div>
-          </td>
-          <td><span class="badge badge-building"><span class="badge-dot"></span>In Development</span></td>
-          <td class="action">Coordinate with Sarmad — PRD in progress</td>
-          <td class="priority-med">🟡 MED</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="sidebar">
-    <!-- FUNNEL -->
-    <div class="mini-panel">
-      <h4>Pipeline Funnel</h4>
-      <div class="funnel-item">
-        <div class="funnel-label">Prospects</div>
-        <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:100%"></div></div>
-        <div class="funnel-val">5</div>
-      </div>
-      <div class="funnel-item">
-        <div class="funnel-label">Proposals Out</div>
-        <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:80%"></div></div>
-        <div class="funnel-val">4</div>
-      </div>
-      <div class="funnel-item">
-        <div class="funnel-label">In Discovery</div>
-        <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:40%"></div></div>
-        <div class="funnel-val">2</div>
-      </div>
-      <div class="funnel-item">
-        <div class="funnel-label">Negotiating</div>
-        <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:20%"></div></div>
-        <div class="funnel-val">1</div>
-      </div>
-      <div class="funnel-item">
-        <div class="funnel-label">Closed Won</div>
-        <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:0%"></div></div>
-        <div class="funnel-val" style="color:var(--muted)">0</div>
-      </div>
-    </div>
-
-    <!-- ACTION ITEMS -->
-    <div class="mini-panel">
-      <h4>🚨 Urgent Action Items</h4>
-      <div class="task-item">
-        <div class="task-text">AAMCO discovery meeting — proposal PDF ready to present</div>
-        <div class="task-tag tag-today">Tomorrow</div>
-      </div>
-      <div class="task-item">
-        <div class="task-text">Al-Misbaah follow-up to Ima Yasir — draft approved, awaiting send</div>
-        <div class="task-tag tag-today">Today</div>
-      </div>
-      <div class="task-item">
-        <div class="task-text">MPKCG follow-up — no response since proposal sent</div>
-        <div class="task-tag tag-today">Today</div>
-      </div>
-      <div class="task-item">
-        <div class="task-text">Ibrahim Algahim — ERP proposal PDF sent, follow up</div>
-        <div class="task-tag tag-week">This week</div>
-      </div>
-      <div class="task-item">
-        <div class="task-text">Bloom Real Estate — finalize updated proposal</div>
-        <div class="task-tag tag-week">This week</div>
-      </div>
-    </div>
-  </div>
+<!-- PIPELINE -->
+<div class="section-label">Active Pipeline</div>
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Client</th>
+        <th>Tier</th>
+        <th>MRR / ARR</th>
+        <th>Status</th>
+        <th>Next Action</th>
+        <th>Priority</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="client-name">AAMCO Oakland</div><div class="client-sub">Auto repair · Sayed Mousumi</div></td>
+        <td><span class="tier tier-business">Business</span></td>
+        <td><div class="mrr">$5,000</div><div class="arr">$60K ARR</div></td>
+        <td><span class="badge badge-discovery"><span class="badge-dot"></span>Discovery</span></td>
+        <td class="action urgent">📅 Meeting Mar 17 — discovery slides + PDF ready</td>
+        <td class="priority-high">🔴 HIGH</td>
+      </tr>
+      <tr>
+        <td><div class="client-name">Al-Misbaah</div><div class="client-sub">AI-native CRM/ERP · Ima Yasir</div></td>
+        <td><span class="tier tier-business">Business</span></td>
+        <td><div class="mrr">$10,000</div><div class="arr">$120K ARR</div></td>
+        <td><span class="badge badge-proposal"><span class="badge-dot"></span>Proposal Pending</span></td>
+        <td class="action urgent">📧 Follow-up to Ima Yasir — needs approval to send</td>
+        <td class="priority-high">🔴 HIGH</td>
+      </tr>
+      <tr>
+        <td><div class="client-name">Bloom Real Estate Group</div><div class="client-sub">AI lead gen · 3-agent pilot + 20% GCI</div></td>
+        <td><span class="tier tier-pro">Pro</span></td>
+        <td><div class="mrr">$3,500 + 20% GCI</div><div class="arr">$42K base + GCI upside</div></td>
+        <td><span class="badge badge-active"><span class="badge-dot"></span>Proposal Active</span></td>
+        <td class="action urgent">Active proposal in play — follow up to close</td>
+        <td class="priority-high">🔴 HIGH</td>
+      </tr>
+      <tr>
+        <td><div class="client-name">Ibrahim Algahim</div><div class="client-sub">AI-Native ERP · Discovery session</div></td>
+        <td><span class="tier tier-business">Business</span></td>
+        <td><div class="mrr">$10,000</div><div class="arr">$120K ARR</div></td>
+        <td><span class="badge badge-discovery"><span class="badge-dot"></span>Discovery</span></td>
+        <td class="action urgent">Schedule discovery session — deck sent</td>
+        <td class="priority-high">🔴 HIGH</td>
+      </tr>
+      <tr>
+        <td><div class="client-name">MPKCG</div><div class="client-sub">HR+Finance consulting · Abdul Shamari</div></td>
+        <td><span class="tier tier-pro">Pro</span></td>
+        <td><div class="mrr">$5,000</div><div class="arr">$60K ARR</div></td>
+        <td><span class="badge badge-proposal"><span class="badge-dot"></span>Proposal Sent</span></td>
+        <td class="action">📧 No response — follow up</td>
+        <td class="priority-high">🔴 HIGH</td>
+      </tr>
+      <tr>
+        <td><div class="client-name">Eventive</div><div class="client-sub">E2E ops automation · Sarmad co-build</div></td>
+        <td><span class="tier tier-pro">Pro</span></td>
+        <td><div class="mrr">$5,000</div><div class="arr">$60K ARR</div></td>
+        <td><span class="badge badge-building"><span class="badge-dot"></span>In Development</span></td>
+        <td class="action">Coordinate with Sarmad on status</td>
+        <td class="priority-med">🟡 MED</td>
+      </tr>
+      <tr class="total-row">
+        <td><div class="client-name">TOTAL PIPELINE</div><div class="client-sub">All 6 prospects closed</div></td>
+        <td></td>
+        <td><div class="mrr" style="color:var(--blue)">$38,500/mo</div><div class="arr">$462K base ARR</div></td>
+        <td></td>
+        <td class="action" style="color:var(--muted)">+ Bloom 20% GCI revenue share</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
-<!-- BOTTOM ROW -->
-<div class="bottom-row">
-  <!-- DEALS BY TIER -->
+<!-- BOTTOM -->
+<div class="bottom-grid">
   <div class="panel">
-    <div class="panel-title">ARR by Tier <span>pipeline</span></div>
-    <div class="funnel-item" style="padding:14px 0">
-      <div class="funnel-label">Enterprise</div>
-      <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:90%"></div></div>
-      <div class="funnel-val">$540K</div>
-    </div>
-    <div class="funnel-item" style="padding:14px 0">
-      <div class="funnel-label">Business</div>
-      <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:40%"></div></div>
-      <div class="funnel-val">$120K</div>
-    </div>
-    <div class="funnel-item" style="padding:14px 0">
-      <div class="funnel-label">Pro</div>
-      <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:0%"></div></div>
-      <div class="funnel-val" style="color:var(--muted)">$0</div>
-    </div>
-    <div class="funnel-item" style="padding:14px 0">
-      <div class="funnel-label">Pilot</div>
-      <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:0%"></div></div>
-      <div class="funnel-val" style="color:var(--muted)">$0</div>
-    </div>
+    <div class="panel-title">Open Tasks</div>
+    <div class="task-item"><div class="task-text">AAMCO meeting Mar 17 — discovery slides + PDF ready</div><div class="task-tag tag-today">TODAY</div></div>
+    <div class="task-item"><div class="task-text">Al-Misbaah follow-up to Ima Yasir — approve to send</div><div class="task-tag tag-today">TODAY</div></div>
+    <div class="task-item"><div class="task-text">Bloom Real Estate — active proposal, follow up to close</div><div class="task-tag tag-today">TODAY</div></div>
+    <div class="task-item"><div class="task-text">MPKCG follow-up — no response since proposal sent</div><div class="task-tag tag-today">TODAY</div></div>
+    <div class="task-item"><div class="task-text">Ibrahim Algahim — schedule discovery session</div><div class="task-tag tag-week">THIS WEEK</div></div>
+    <div class="task-item"><div class="task-text">Eventive — check in with Sarmad on status</div><div class="task-tag tag-week">THIS WEEK</div></div>
+    <div class="task-item"><div class="task-text">Deploy revivalgroup.ai site via Sarmad</div><div class="task-tag tag-week">THIS WEEK</div></div>
   </div>
-
-  <!-- PRODUCT STATUS -->
-  <div class="panel">
-    <div class="panel-title">Product Status</div>
-    <div class="task-item">
-      <div class="task-text"><strong style="color:#fff">AI-Native ERP</strong><br>PRD, one-pager, comparison, GTM plan complete. Ibrahim proposal sent.</div>
-      <div class="task-tag" style="background:rgba(74,159,212,0.1);color:#4a9fd4">Active</div>
-    </div>
-    <div class="task-item">
-      <div class="task-text"><strong style="color:#fff">revivalgroup.ai Site</strong><br>Sales site HTML built. Needs Sarmad deployment.</div>
-      <div class="task-tag tag-week">Pending</div>
-    </div>
-    <div class="task-item">
-      <div class="task-text"><strong style="color:#fff">LinkedIn Content Engine</strong><br>Daily 8:30am drops active. 2 articles scheduled (Mon/Tue).</div>
-      <div class="task-tag tag-done">Running</div>
-    </div>
-    <div class="task-item">
-      <div class="task-text"><strong style="color:#fff">Cold Email Sequence</strong><br>3-step sequence drafted. Apollo setup pending.</div>
-      <div class="task-tag tag-week">Pending</div>
-    </div>
-  </div>
-
-  <!-- RECENT ACTIVITY -->
   <div class="panel">
     <div class="panel-title">Recent Activity</div>
-    <div class="activity-item">
-      <div class="a-dot" style="background:var(--green)"></div>
-      <div><div class="a-text">AAMCO Oakland PDF proposal generated</div><div class="a-time">Today · Mar 16</div></div>
-    </div>
-    <div class="activity-item">
-      <div class="a-dot"></div>
-      <div><div class="a-text">Ibrahim Algahim ERP proposal PDF sent</div><div class="a-time">Today · Mar 16</div></div>
-    </div>
-    <div class="activity-item">
-      <div class="a-dot"></div>
-      <div><div class="a-text">revivalgroup.ai sales site built</div><div class="a-time">Today · Mar 16</div></div>
-    </div>
-    <div class="activity-item">
-      <div class="a-dot"></div>
-      <div><div class="a-text">Business portfolio strategy doc finalized</div><div class="a-time">Yesterday · Mar 15</div></div>
-    </div>
-    <div class="activity-item">
-      <div class="a-dot"></div>
-      <div><div class="a-text">MPKCG 5-agent proposal sent</div><div class="a-time">Yesterday · Mar 15</div></div>
-    </div>
-    <div class="activity-item">
-      <div class="a-dot"></div>
-      <div><div class="a-text">3 LinkedIn articles drafted + scheduled</div><div class="a-time">Yesterday · Mar 15</div></div>
-    </div>
+    <div class="activity-item"><div class="a-dot" style="background:#f59e0b"></div><div><div class="a-text">Pipeline pricing updated across all 6 clients</div><div class="a-time">Today · Mar 16</div></div></div>
+    <div class="activity-item"><div class="a-dot" style="background:#00c87a"></div><div><div class="a-text">AAMCO 10-slide discovery deck + GitHub Pages deployed</div><div class="a-time">Today · Mar 16</div></div></div>
+    <div class="activity-item"><div class="a-dot" style="background:#4a9fd4"></div><div><div class="a-text">Ibrahim Algahim ERP discovery PDF sent (no pricing)</div><div class="a-time">Today · Mar 16</div></div></div>
+    <div class="activity-item"><div class="a-dot" style="background:#4a9fd4"></div><div><div class="a-text">revivalgroup.ai sales site built — deploy-ready</div><div class="a-time">Today · Mar 16</div></div></div>
+    <div class="activity-item"><div class="a-dot" style="background:#4a9fd4"></div><div><div class="a-text">MPKCG 5-agent proposal sent to Abdul Shamari</div><div class="a-time">Yesterday · Mar 15</div></div></div>
+    <div class="activity-item"><div class="a-dot" style="background:#4a9fd4"></div><div><div class="a-text">Business portfolio + COGS strategy finalized</div><div class="a-time">Yesterday · Mar 15</div></div></div>
   </div>
 </div>
 
-</main>
 </body>
 </html>
