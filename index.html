@@ -10,62 +10,71 @@
   --blue:#4a9fd4;--green:#00c87a;--yellow:#f59e0b;--red:#ef4444;--purple:#a78bfa;--orange:#fb923c;
   --dark:#07080f;--s1:#0d1117;--border:#1e2a3a;--text:#e2e8f0;--muted:#64748b
 }
-body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:var(--dark);color:var(--text);min-height:100vh;padding:48px 56px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;background:var(--dark);color:var(--text);min-height:100vh;padding:24px 16px}
 
 /* HEADER */
-.header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px;padding-bottom:24px;border-bottom:1px solid var(--border)}
-.logo{font-size:11px;font-weight:700;letter-spacing:4px;color:var(--blue);text-transform:uppercase;margin-bottom:6px}
-.title{font-size:26px;font-weight:700;color:#fff}
-.updated{font-size:12px;color:var(--muted)}
+.header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.logo{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--blue);text-transform:uppercase;margin-bottom:5px}
+.title{font-size:20px;font-weight:700;color:#fff}
+.updated{font-size:11px;color:var(--muted);margin-top:4px}
 
-/* KPI STRIP */
-.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:48px}
-.kpi{background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:22px 26px}
-.kpi .label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
-.kpi .value{font-size:32px;font-weight:700;color:#fff;line-height:1}
-.kpi .sub{font-size:12px;color:var(--muted);margin-top:6px}
-.kpi.urgent{border-color:var(--red)}
-.kpi.urgent .value{color:var(--red)}
-.kpi.good{border-color:var(--green)}
-.kpi.good .value{color:var(--green)}
+/* KPI STRIP — 2x2 on mobile */
+.kpi-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:32px}
+.kpi{background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:16px 18px}
+.kpi .label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.kpi .value{font-size:26px;font-weight:700;color:#fff;line-height:1}
+.kpi .sub{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}
+.kpi.urgent{border-color:var(--red)}.kpi.urgent .value{color:var(--red)}
+.kpi.good{border-color:var(--green)}.kpi.good .value{color:var(--green)}
 
 /* SECTION HEADER */
-.section{margin-bottom:40px}
-.section-title{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.section{margin-bottom:32px}
+.section-title{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:10px}
 .section-title::after{content:'';flex:1;height:1px;background:var(--border)}
 
-/* PRIORITY ACTION TABLE */
-.action-table{width:100%;border-collapse:collapse;background:var(--s1);border-radius:12px;overflow:hidden;border:1px solid var(--border)}
-.action-table th{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:14px 22px;text-align:left;border-bottom:1px solid var(--border);background:rgba(0,0,0,0.3)}
-.action-table td{padding:18px 22px;border-bottom:1px solid #0a0f16;vertical-align:top}
-.action-table tr:last-child td{border-bottom:none}
-.action-table tr:hover td{background:rgba(255,255,255,0.01)}
-.item-name{font-size:15px;font-weight:700;color:#fff;margin-bottom:3px}
-.item-sub{font-size:12px;color:var(--muted)}
-.action-text{font-size:13px;color:var(--text);font-weight:500}
-.owner-text{font-size:12px;color:var(--muted)}
+/* ACTION CARDS — stacked on mobile */
+.action-card{background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:10px;position:relative;overflow:hidden}
+.action-card .left-bar{position:absolute;left:0;top:0;width:3px;height:100%;border-radius:10px 0 0 10px}
+.bar-red{background:var(--red)}
+.bar-yellow{background:var(--yellow)}
+.bar-blue{background:var(--blue)}
+.bar-purple{background:var(--purple)}
+.bar-green{background:var(--green)}
+.action-card-inner{padding-left:12px}
+.ac-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.ac-name{font-size:15px;font-weight:700;color:#fff}
+.ac-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.ac-deadline{font-size:13px;font-weight:700;white-space:nowrap;margin-left:12px;flex-shrink:0}
+.dead-red{color:var(--red)}
+.dead-yellow{color:var(--yellow)}
+.dead-blue{color:var(--blue)}
+.dead-green{color:var(--green)}
+.ac-action{font-size:13px;color:var(--text);line-height:1.5;margin-bottom:10px}
+.ac-footer{display:flex;justify-content:space-between;align-items:center}
+.ac-value{font-size:13px;font-weight:700;color:var(--green)}
+.ac-value span{font-size:11px;color:var(--muted);font-weight:400}
 
-/* MILESTONE ROWS */
-.milestone-table{width:100%;border-collapse:collapse;background:var(--s1);border-radius:12px;overflow:hidden;border:1px solid var(--border)}
-.milestone-table th{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:14px 22px;text-align:left;border-bottom:1px solid var(--border);background:rgba(0,0,0,0.3)}
-.milestone-table td{padding:18px 22px;border-bottom:1px solid #0a0f16;vertical-align:middle}
-.milestone-table tr:last-child td{border-bottom:none}
-.milestone-table tr:hover td{background:rgba(255,255,255,0.01)}
-.m-name{font-size:14px;font-weight:700;color:#fff}
-.m-sub{font-size:12px;color:var(--muted);margin-top:2px}
-.deadline{font-size:13px;font-weight:700}
-.deadline.red{color:var(--red)}
-.deadline.yellow{color:var(--yellow)}
-.deadline.green{color:var(--green)}
-.deadline.blue{color:var(--blue)}
+/* MILESTONE CARDS */
+.milestone-card{background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:16px 18px;margin-bottom:10px}
+.mc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.mc-name{font-size:14px;font-weight:700;color:#fff}
+.mc-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.mc-right{text-align:right;flex-shrink:0;margin-left:12px}
+.mc-date{font-size:12px;font-weight:700}
+.mc-desc{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:10px}
+.mc-footer{display:flex;justify-content:space-between;align-items:center}
+.mc-value{font-size:12px;font-weight:600;color:var(--text)}
 
-/* VALUE */
-.val{font-size:14px;font-weight:700;color:#fff}
-.val-sub{font-size:11px;color:var(--muted);margin-top:2px}
+/* DECISION CARDS */
+.decision-card{background:var(--s1);border:1px solid var(--border);border-left:3px solid var(--yellow);border-radius:10px;padding:16px 18px;margin-bottom:10px}
+.decision-card.blocking{border-left-color:var(--red)}
+.d-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.d-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:4px}
+.d-context{font-size:12px;color:var(--muted);line-height:1.5}
 
 /* BADGES */
-.badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px}
-.badge-dot{width:6px;height:6px;border-radius:50%}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:600;padding:3px 9px;border-radius:20px}
+.badge-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
 .b-red{background:rgba(239,68,68,0.12);color:var(--red)}.b-red .badge-dot{background:var(--red)}
 .b-yellow{background:rgba(245,158,11,0.12);color:var(--yellow)}.b-yellow .badge-dot{background:var(--yellow)}
 .b-green{background:rgba(0,200,122,0.12);color:var(--green)}.b-green .badge-dot{background:var(--green)}
@@ -73,16 +82,16 @@ body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:var(--da
 .b-purple{background:rgba(167,139,250,0.12);color:var(--purple)}.b-purple .badge-dot{background:var(--purple)}
 .b-orange{background:rgba(251,146,60,0.12);color:var(--orange)}.b-orange .badge-dot{background:var(--orange)}
 
-/* DECISION FLAGS */
-.decision-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.decision-card{background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:20px 22px;border-left:3px solid var(--yellow)}
-.decision-card.blocking{border-left-color:var(--red)}
-.decision-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-.decision-text{font-size:14px;font-weight:600;color:#fff;margin-bottom:4px}
-.decision-context{font-size:12px;color:var(--muted)}
-
 /* FOOTER */
-.footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--border);display:flex;justify-content:space-between;font-size:11px;color:var(--muted);letter-spacing:1px}
+.footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);text-align:center;line-height:1.8}
+.footer a{color:var(--blue)}
+
+/* DESKTOP — wider screens */
+@media(min-width:700px){
+  body{padding:40px 48px}
+  .kpi-row{grid-template-columns:repeat(4,1fr)}
+  .title{font-size:26px}
+}
 </style>
 </head>
 <body>
@@ -91,11 +100,11 @@ body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:var(--da
   <div>
     <div class="logo">Revival Group</div>
     <div class="title">Executive Dashboard</div>
+    <div class="updated">Week of Apr 22, 2026 · Confidential</div>
   </div>
-  <div class="updated">Week of Apr 22, 2026 · Confidential</div>
 </div>
 
-<!-- KPI STRIP -->
+<!-- KPIs -->
 <div class="kpi-row">
   <div class="kpi urgent">
     <div class="label">Overdue</div>
@@ -119,204 +128,168 @@ body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:var(--da
   </div>
 </div>
 
-<!-- SECTION 1: CRITICAL ACTIONS THIS WEEK -->
+<!-- CRITICAL ACTIONS -->
 <div class="section">
-  <div class="section-title">Critical Actions — This Week</div>
-  <table class="action-table">
-    <thead>
-      <tr>
-        <th style="width:22%">Initiative</th>
-        <th style="width:12%">Deadline</th>
-        <th style="width:12%">Value</th>
-        <th>Action Required</th>
-        <th style="width:13%">Owner</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-          <div class="item-name">AAMCO Oakland</div>
-          <div class="item-sub">AI Operations Proposal</div>
-        </td>
-        <td><span class="deadline red">TODAY</span></td>
-        <td>
-          <div class="val">$36–60K</div>
-          <div class="val-sub">/yr</div>
-        </td>
-        <td>
-          <div class="action-text">Send proposal — overdue 36 days since Mar 17 meeting. Relationship at risk.</div>
-        </td>
-        <td><span class="badge b-red"><span class="badge-dot"></span>Reshad</span></td>
-      </tr>
-      <tr>
-        <td>
-          <div class="item-name">Bloom Real Estate</div>
-          <div class="item-sub">Close + SQL Agent</div>
-        </td>
-        <td><span class="deadline yellow">Apr 25</span></td>
-        <td>
-          <div class="val">$36–60K</div>
-          <div class="val-sub">/yr</div>
-        </td>
-        <td>
-          <div class="action-text">Send follow-up to get signature before owner goes on parental leave. Window closes end of week.</div>
-        </td>
-        <td><span class="badge b-yellow"><span class="badge-dot"></span>Reshad</span></td>
-      </tr>
-      <tr>
-        <td>
-          <div class="item-name">Al-Misbaah</div>
-          <div class="item-sub">ERP + CEO Agents</div>
-        </td>
-        <td><span class="deadline yellow">Apr 28</span></td>
-        <td>
-          <div class="val">$60–80K</div>
-          <div class="val-sub">/yr</div>
-        </td>
-        <td>
-          <div class="action-text">Imam Yasir back. Follow-up email drafted — approve and send to close.</div>
-        </td>
-        <td><span class="badge b-yellow"><span class="badge-dot"></span>Reshad</span></td>
-      </tr>
-      <tr>
-        <td>
-          <div class="item-name">MPKCG — Discovery</div>
-          <div class="item-sub">PracticeOS · $5K/mo</div>
-        </td>
-        <td><span class="deadline yellow">This week</span></td>
-        <td>
-          <div class="val">$60K+</div>
-          <div class="val-sub">/yr → $480K ARR</div>
-        </td>
-        <td>
-          <div class="action-text">Schedule discovery call. No pricing discussed — listen and map workflows only.</div>
-        </td>
-        <td><span class="badge b-purple"><span class="badge-dot"></span>Reshad</span></td>
-      </tr>
-      <tr>
-        <td>
-          <div class="item-name">Sarmad Sync</div>
-          <div class="item-sub">Agent Sprint Alignment</div>
-        </td>
-        <td><span class="deadline yellow">Today</span></td>
-        <td>—</td>
-        <td>
-          <div class="action-text">Lock scope for Bloom SQL Agent, Eventive Agent, MPKCG Agent. Confirm ownership before Sunday.</div>
-        </td>
-        <td><span class="badge b-blue"><span class="badge-dot"></span>Reshad + Sarmad</span></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  <div class="section-title">Critical Actions This Week</div>
 
-<!-- SECTION 2: MILESTONE TRACKER -->
-<div class="section">
-  <div class="section-title">Milestone Tracker</div>
-  <table class="milestone-table">
-    <thead>
-      <tr>
-        <th style="width:22%">Milestone</th>
-        <th style="width:12%">Target</th>
-        <th style="width:14%">Status</th>
-        <th>What Success Looks Like</th>
-        <th style="width:14%">Value Unlocked</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-          <div class="m-name">First Signed Client</div>
-          <div class="m-sub">Bloom or Al-Misbaah</div>
-        </td>
-        <td><span class="deadline yellow">Apr 28</span></td>
-        <td><span class="badge b-orange"><span class="badge-dot"></span>Closing</span></td>
-        <td>Signed agreement + deposit received from first Revival Group client</td>
-        <td><div class="val">$36–80K ARR</div></td>
-      </tr>
-      <tr>
-        <td>
-          <div class="m-name">Agent Sprint Launch</div>
-          <div class="m-sub">Bloom · Eventive · MPKCG</div>
-        </td>
-        <td><span class="deadline blue">Apr 27</span></td>
-        <td><span class="badge b-yellow"><span class="badge-dot"></span>In Build</span></td>
-        <td>3 agents live on private OpenClaw instances. RG sandbox running.</td>
-        <td><div class="val">Demo-ready</div><div class="val-sub">Closes deals faster</div></td>
-      </tr>
-      <tr>
-        <td>
-          <div class="m-name">MPKCG Discovery → Proposal</div>
-          <div class="m-sub">PracticeOS Platform</div>
-        </td>
-        <td><span class="deadline blue">May 2</span></td>
-        <td><span class="badge b-blue"><span class="badge-dot"></span>Scheduling</span></td>
-        <td>Discovery call complete. Locked scope + proposal delivered within 5 days.</td>
-        <td><div class="val">$60K/yr</div><div class="val-sub">+ SaaS scale path</div></td>
-      </tr>
-      <tr>
-        <td>
-          <div class="m-name">revivalgroup.ai Live</div>
-          <div class="m-sub">New site deploy</div>
-        </td>
-        <td><span class="deadline yellow">This week</span></td>
-        <td><span class="badge b-yellow"><span class="badge-dot"></span>File Ready</span></td>
-        <td>New site live at revivalgroup.ai. Send index.html to Sarmad to deploy.</td>
-        <td><div class="val">Brand credibility</div></td>
-      </tr>
-      <tr>
-        <td>
-          <div class="m-name">Ibrahim Alaeli Proposal</div>
-          <div class="m-sub">Produce Distribution AI</div>
-        </td>
-        <td><span class="deadline blue">May 5</span></td>
-        <td><span class="badge b-blue"><span class="badge-dot"></span>In Progress</span></td>
-        <td>Proposal sent. Discovery meeting scheduled.</td>
-        <td><div class="val">TBD</div></td>
-      </tr>
-      <tr>
-        <td>
-          <div class="m-name">Cold Outbound Live</div>
-          <div class="m-sub">Apollo.io + Instantly.ai</div>
-        </td>
-        <td><span class="deadline red">Overdue</span></td>
-        <td><span class="badge b-red"><span class="badge-dot"></span>Not Started</span></td>
-        <td>Domain warmed. First sequence running. Pipeline generation active.</td>
-        <td><div class="val">New pipeline</div><div class="val-sub">Top of funnel</div></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  <div class="action-card">
+    <div class="left-bar bar-red"></div>
+    <div class="action-card-inner">
+      <div class="ac-top">
+        <div><div class="ac-name">AAMCO Oakland</div><div class="ac-sub">AI Operations Proposal</div></div>
+        <div class="ac-deadline dead-red">TODAY</div>
+      </div>
+      <div class="ac-action">Send proposal — overdue 36 days since Mar 17 meeting. Relationship at risk.</div>
+      <div class="ac-footer">
+        <div class="ac-value">$36–60K <span>/yr</span></div>
+        <span class="badge b-red"><span class="badge-dot"></span>Reshad</span>
+      </div>
+    </div>
+  </div>
 
-<!-- SECTION 3: DECISIONS NEEDED -->
-<div class="section">
-  <div class="section-title">Decisions Required from Leadership</div>
-  <div class="decision-grid">
-    <div class="decision-card blocking">
-      <div class="decision-label">🔴 Blocking</div>
-      <div class="decision-text">MPKCG — Pricing Model</div>
-      <div class="decision-context">Lead with $5K/month subscription or open with equity? Must decide before discovery call.</div>
+  <div class="action-card">
+    <div class="left-bar bar-yellow"></div>
+    <div class="action-card-inner">
+      <div class="ac-top">
+        <div><div class="ac-name">Bloom Real Estate</div><div class="ac-sub">Close + SQL Agent</div></div>
+        <div class="ac-deadline dead-yellow">Apr 25</div>
+      </div>
+      <div class="ac-action">Follow up for signature before owner goes on parental leave. Window closes end of week.</div>
+      <div class="ac-footer">
+        <div class="ac-value">$36–60K <span>/yr</span></div>
+        <span class="badge b-yellow"><span class="badge-dot"></span>Reshad</span>
+      </div>
     </div>
-    <div class="decision-card blocking">
-      <div class="decision-label">🔴 Blocking</div>
-      <div class="decision-text">Agent Sprint — Dev Ownership</div>
-      <div class="decision-context">Sarmad owns Eventive. Who owns Bloom SQL Agent + MPKCG Agent? Confirm today.</div>
+  </div>
+
+  <div class="action-card">
+    <div class="left-bar bar-yellow"></div>
+    <div class="action-card-inner">
+      <div class="ac-top">
+        <div><div class="ac-name">Al-Misbaah</div><div class="ac-sub">ERP + CEO Agents</div></div>
+        <div class="ac-deadline dead-yellow">Apr 28</div>
+      </div>
+      <div class="ac-action">Imam Yasir back. Follow-up drafted — approve and send to close.</div>
+      <div class="ac-footer">
+        <div class="ac-value">$60–80K <span>/yr</span></div>
+        <span class="badge b-yellow"><span class="badge-dot"></span>Reshad</span>
+      </div>
     </div>
-    <div class="decision-card">
-      <div class="decision-label">🟡 This Week</div>
-      <div class="decision-text">Al-Misbaah Follow-Up</div>
-      <div class="decision-context">Email is drafted and ready. Approve to send — targeting close Apr 28.</div>
+  </div>
+
+  <div class="action-card">
+    <div class="left-bar bar-purple"></div>
+    <div class="action-card-inner">
+      <div class="ac-top">
+        <div><div class="ac-name">MPKCG Discovery</div><div class="ac-sub">PracticeOS · $5K/mo</div></div>
+        <div class="ac-deadline dead-yellow">This week</div>
+      </div>
+      <div class="ac-action">Schedule discovery call. No pricing discussed on the call — listen and map workflows only.</div>
+      <div class="ac-footer">
+        <div class="ac-value">$60K+ <span>/yr → $480K ARR</span></div>
+        <span class="badge b-purple"><span class="badge-dot"></span>Reshad</span>
+      </div>
     </div>
-    <div class="decision-card">
-      <div class="decision-label">🟡 This Week</div>
-      <div class="decision-text">revivalgroup.ai Deploy</div>
-      <div class="decision-context">Site file is built. Confirm handoff to Sarmad or deploy directly via GitHub Pages.</div>
+  </div>
+
+  <div class="action-card">
+    <div class="left-bar bar-blue"></div>
+    <div class="action-card-inner">
+      <div class="ac-top">
+        <div><div class="ac-name">Sarmad Sprint Sync</div><div class="ac-sub">Agent Build Alignment</div></div>
+        <div class="ac-deadline dead-blue">Today</div>
+      </div>
+      <div class="ac-action">Lock scope + ownership for all 3 agents before Sunday. No ambiguity going into the weekend.</div>
+      <div class="ac-footer">
+        <div class="ac-value">—</div>
+        <span class="badge b-blue"><span class="badge-dot"></span>Reshad + Sarmad</span>
+      </div>
     </div>
   </div>
 </div>
 
+<!-- MILESTONES -->
+<div class="section">
+  <div class="section-title">Milestone Tracker</div>
+
+  <div class="milestone-card">
+    <div class="mc-top">
+      <div><div class="mc-name">First Signed Client</div><div class="mc-sub">Bloom or Al-Misbaah</div></div>
+      <div class="mc-right"><div class="mc-date dead-yellow">Apr 28</div><span class="badge b-orange" style="margin-top:4px"><span class="badge-dot"></span>Closing</span></div>
+    </div>
+    <div class="mc-desc">Signed agreement + deposit received. Revival Group's first contracted client.</div>
+    <div class="mc-footer"><div class="mc-value">$36–80K ARR unlocked</div></div>
+  </div>
+
+  <div class="milestone-card">
+    <div class="mc-top">
+      <div><div class="mc-name">Agent Sprint Launch</div><div class="mc-sub">Bloom · Eventive · MPKCG</div></div>
+      <div class="mc-right"><div class="mc-date dead-blue">Apr 27</div><span class="badge b-yellow" style="margin-top:4px"><span class="badge-dot"></span>In Build</span></div>
+    </div>
+    <div class="mc-desc">3 agents live on private OpenClaw instances. RG sandbox running for demos.</div>
+    <div class="mc-footer"><div class="mc-value">Demo-ready → closes deals faster</div></div>
+  </div>
+
+  <div class="milestone-card">
+    <div class="mc-top">
+      <div><div class="mc-name">MPKCG Proposal</div><div class="mc-sub">Post-Discovery</div></div>
+      <div class="mc-right"><div class="mc-date dead-blue">May 2</div><span class="badge b-blue" style="margin-top:4px"><span class="badge-dot"></span>Scheduling</span></div>
+    </div>
+    <div class="mc-desc">Discovery call done. Scope locked. Proposal delivered within 5 days of call.</div>
+    <div class="mc-footer"><div class="mc-value">$60K/yr + SaaS scale path</div></div>
+  </div>
+
+  <div class="milestone-card">
+    <div class="mc-top">
+      <div><div class="mc-name">revivalgroup.ai Live</div><div class="mc-sub">New site deploy</div></div>
+      <div class="mc-right"><div class="mc-date dead-yellow">This week</div><span class="badge b-yellow" style="margin-top:4px"><span class="badge-dot"></span>File Ready</span></div>
+    </div>
+    <div class="mc-desc">Site built and ready. Send index.html to Sarmad or deploy via GitHub Pages directly.</div>
+    <div class="mc-footer"><div class="mc-value">Brand credibility for all prospect meetings</div></div>
+  </div>
+
+  <div class="milestone-card">
+    <div class="mc-top">
+      <div><div class="mc-name">Cold Outbound Live</div><div class="mc-sub">Apollo.io + Instantly.ai</div></div>
+      <div class="mc-right"><div class="mc-date dead-red">Overdue</div><span class="badge b-red" style="margin-top:4px"><span class="badge-dot"></span>Not Started</span></div>
+    </div>
+    <div class="mc-desc">Domain warmed. First sequence running. New pipeline being generated.</div>
+    <div class="mc-footer"><div class="mc-value">Top-of-funnel pipeline generation</div></div>
+  </div>
+</div>
+
+<!-- DECISIONS -->
+<div class="section">
+  <div class="section-title">Decisions Required</div>
+
+  <div class="decision-card blocking">
+    <div class="d-label">🔴 Blocking</div>
+    <div class="d-title">MPKCG — Pricing Model</div>
+    <div class="d-context">Lead with $5K/month subscription or open with equity? Must decide before discovery call.</div>
+  </div>
+
+  <div class="decision-card blocking">
+    <div class="d-label">🔴 Blocking</div>
+    <div class="d-title">Agent Sprint — Dev Ownership</div>
+    <div class="d-context">Who owns Bloom SQL Agent + MPKCG Agent? Confirm with Sarmad today or Sunday is at risk.</div>
+  </div>
+
+  <div class="decision-card">
+    <div class="d-label">🟡 This Week</div>
+    <div class="d-title">Al-Misbaah Follow-Up</div>
+    <div class="d-context">Email drafted and ready to send. Approve to close by Apr 28.</div>
+  </div>
+
+  <div class="decision-card">
+    <div class="d-label">🟡 This Week</div>
+    <div class="d-title">revivalgroup.ai Deploy</div>
+    <div class="d-context">Site file is built. Confirm handoff to Sarmad or deploy via GitHub Pages now.</div>
+  </div>
+</div>
+
 <div class="footer">
-  <div>Revival Group · Executive Dashboard · Confidential</div>
-  <div>Apr 22, 2026 · <a href="https://reshadn.github.io/revival-group-dashboard/projects.html" style="color:var(--blue)">Full Project View</a></div>
+  Revival Group · Executive Dashboard · Confidential<br>
+  Apr 22, 2026 · <a href="https://reshadn.github.io/revival-group-dashboard/projects.html">Full Project View</a>
 </div>
 
 </body>
