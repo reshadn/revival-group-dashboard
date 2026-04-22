@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revival Group — Project Dashboard</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --blue:#4a9fd4;--green:#00c87a;--yellow:#f59e0b;--red:#ef4444;--purple:#a78bfa;--orange:#fb923c;
+  --dark:#07080f;--s1:#0d1117;--s2:#111827;--border:#1e2a3a;--text:#e2e8f0;--muted:#64748b
+}
+body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:var(--dark);color:var(--text);min-height:100vh;padding:40px 48px}
+a{color:inherit;text-decoration:none}
+
+/* HEADER */
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px}
+.logo{font-size:13px;font-weight:700;letter-spacing:3px;color:var(--blue);text-transform:uppercase}
+.updated{font-size:12px;color:var(--muted)}
+.nav{display:flex;gap:24px;font-size:12px;letter-spacing:1px;text-transform:uppercase}
+.nav a{color:var(--muted);transition:color 0.2s}
+.nav a:hover,.nav a.active{color:var(--blue)}
+
+/* KPI ROW */
+.kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:36px}
+.kpi{background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:20px 24px}
+.kpi .label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.kpi .value{font-size:28px;font-weight:700;color:#fff;line-height:1}
+.kpi .sub{font-size:12px;color:var(--muted);margin-top:4px}
+.kpi.highlight{border-color:var(--blue)}
+.kpi.highlight .value{color:var(--blue)}
+
+/* SECTION */
+.section-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;margin-top:32px}
+
+/* PROJECT CARDS GRID */
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px}
+.project-card{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:24px;position:relative;transition:border-color 0.2s}
+.project-card:hover{border-color:rgba(74,159,212,0.4)}
+.project-card .card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
+.project-card .client{font-size:16px;font-weight:700;color:#fff}
+.project-card .type{font-size:11px;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:1px}
+.project-card .value{font-size:13px;font-weight:600;color:var(--green);text-align:right}
+.project-card .value .arr{font-size:11px;color:var(--muted);font-weight:400}
+.project-card .desc{font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.5}
+.project-card .meta{display:flex;flex-direction:column;gap:6px}
+.project-card .meta-row{display:flex;justify-content:space-between;font-size:12px}
+.project-card .meta-row .mk{color:var(--muted)}
+.project-card .meta-row .mv{color:var(--text);font-weight:500}
+.project-card .next{margin-top:14px;padding-top:14px;border-top:1px solid var(--border);font-size:12px;color:var(--muted)}
+.project-card .next span{color:var(--blue)}
+.project-card .priority-bar{position:absolute;top:0;left:0;width:100%;height:3px;border-radius:12px 12px 0 0}
+.bar-red{background:var(--red)}
+.bar-yellow{background:var(--yellow)}
+.bar-green{background:var(--green)}
+.bar-blue{background:var(--blue)}
+.bar-purple{background:var(--purple)}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;letter-spacing:0.5px}
+.badge-dot{width:6px;height:6px;border-radius:50%;display:inline-block}
+.badge-red{background:rgba(239,68,68,0.15);color:var(--red)}
+.badge-red .badge-dot{background:var(--red)}
+.badge-yellow{background:rgba(245,158,11,0.15);color:var(--yellow)}
+.badge-yellow .badge-dot{background:var(--yellow)}
+.badge-green{background:rgba(0,200,122,0.15);color:var(--green)}
+.badge-green .badge-dot{background:var(--green)}
+.badge-blue{background:rgba(74,159,212,0.15);color:var(--blue)}
+.badge-blue .badge-dot{background:var(--blue)}
+.badge-purple{background:rgba(167,139,250,0.15);color:var(--purple)}
+.badge-purple .badge-dot{background:var(--purple)}
+.badge-orange{background:rgba(251,146,60,0.15);color:var(--orange)}
+.badge-orange .badge-dot{background:var(--orange)}
+
+/* AGENT SPRINT TABLE */
+.table-wrap{background:var(--s1);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:28px}
+table{width:100%;border-collapse:collapse}
+th{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:14px 20px;text-align:left;background:rgba(7,8,15,0.5);border-bottom:1px solid var(--border)}
+td{padding:14px 20px;border-bottom:1px solid #0a0f16;font-size:13px;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,0.015)}
+.task-name{font-size:14px;font-weight:600;color:#fff;margin-bottom:2px}
+.task-sub{font-size:12px;color:var(--muted)}
+
+/* PIPELINE FUNNEL */
+.funnel-row{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:32px}
+.funnel-stage{background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:16px 20px;text-align:center}
+.funnel-stage .stage-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.funnel-stage .stage-count{font-size:24px;font-weight:700;color:#fff}
+.funnel-stage .stage-val{font-size:12px;color:var(--muted);margin-top:4px}
+
+/* FOOTER */
+.footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--border);display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="logo">⚡ Revival Group</div>
+    <div class="updated">Project Command Center · Updated Apr 22, 2026</div>
+  </div>
+  <div class="nav">
+    <a href="https://reshadn.github.io/revival-group-dashboard/" class="active">Projects</a>
+    <a href="https://reshadn.github.io/revival-group-dashboard/marketing-erp/">ERP Marketing</a>
+  </div>
+</div>
+
+<!-- KPI ROW -->
+<div class="kpi-row">
+  <div class="kpi highlight">
+    <div class="label">Active Prospects</div>
+    <div class="value">7</div>
+    <div class="sub">In pipeline</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Closing This Week</div>
+    <div class="value">2</div>
+    <div class="sub">Al-Misbaah · Bloom</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Pipeline Value</div>
+    <div class="value">$312K</div>
+    <div class="sub">Est. ARR if all close</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Agent Sprint</div>
+    <div class="value">3</div>
+    <div class="sub">Ship by Sunday</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Site Status</div>
+    <div class="value" style="font-size:18px;color:var(--yellow)">Ready</div>
+    <div class="sub">revivalgroup.ai — deploy pending</div>
+  </div>
+</div>
+
+<!-- PIPELINE FUNNEL -->
+<div class="section-label">Pipeline Funnel</div>
+<div class="funnel-row">
+  <div class="funnel-stage">
+    <div class="stage-label">Discovery</div>
+    <div class="stage-count" style="color:var(--blue)">2</div>
+    <div class="stage-val">Ibrahim Alaeli · Abe/CarsXE</div>
+  </div>
+  <div class="funnel-stage">
+    <div class="stage-label">Proposal Sent</div>
+    <div class="stage-count" style="color:var(--purple)">3</div>
+    <div class="stage-val">MPKCG · Eventive · AAMCO</div>
+  </div>
+  <div class="funnel-stage">
+    <div class="stage-label">Negotiation</div>
+    <div class="stage-count" style="color:var(--yellow)">1</div>
+    <div class="stage-val">Ibrahim Algahim</div>
+  </div>
+  <div class="funnel-stage">
+    <div class="stage-label">Closing</div>
+    <div class="stage-count" style="color:var(--orange)">2</div>
+    <div class="stage-val">Al-Misbaah · Bloom</div>
+  </div>
+  <div class="funnel-stage">
+    <div class="stage-label">Closed</div>
+    <div class="stage-count" style="color:var(--green)">0</div>
+    <div class="stage-val">First client pending</div>
+  </div>
+</div>
+
+<!-- PROJECT CARDS -->
+<div class="section-label">Active Projects & Prospects</div>
+<div class="projects-grid">
+
+  <!-- Al-Misbaah -->
+  <div class="project-card">
+    <div class="priority-bar bar-red"></div>
+    <div class="card-header">
+      <div>
+        <div class="client">Al-Misbaah</div>
+        <div class="type">AI-Native CRM/ERP · CEO Agents</div>
+      </div>
+      <div>
+        <span class="badge badge-orange"><span class="badge-dot"></span>Closing</span>
+      </div>
+    </div>
+    <div class="desc">AI CRM/ERP + CEO support agents. Imam Yasir back — targeting close next week.</div>
+    <div class="meta">
+      <div class="meta-row"><span class="mk">Contact</span><span class="mv">Imam Yasir</span></div>
+      <div class="meta-row"><span class="mk">Est. Value</span><span class="mv">$60K–$80K/yr</span></div>
+      <div class="meta-row"><span class="mk">Proposal</span><span class="mv">Sent ✓</span></div>
+      <div class="meta-row"><span class="mk">Follow-up</span><span class="mv">This week</span></div>
+    </div>
+    <div class="next">Next → <span>Send follow-up email · close by Apr 28</span></div>
+  </div>
+
+  <!-- Bloom -->
+  <div class="project-card">
+    <div class="priority-bar bar-red"></div>
+    <div class="card-header">
+      <div>
+        <div class="client">Bloom Real Estate</div>
+        <div class="type">AI Lead Gen Engine · SQL Agent</div>
+      </div>
+      <div>
+        <span class="badge badge-orange"><span class="badge-dot"></span>Closing</span>
+      </div>
+    </div>
+    <div class="desc">AI lead generation engine + SQL Generator Agent. Owner expecting baby — signature by end of week.</div>
+    <div class="meta">
+      <div class="meta-row"><span class="mk">Pilot</span><span class="mv">3 agents · 30-day</span></div>
+      <div class="meta-row"><span class="mk">Est. Value</span><span class="mv">$36K–$60K/yr</span></div>
+      <div class="meta-row"><span class="mk">Agent Sprint</span><span class="mv">SQL Agent → Sunday</span></div>
+      <div class="meta-row"><span class="mk">Proposal</span><span class="mv">Active</span></div>
+    </div>
+    <div class="next">Next → <span>Follow up for signature · ship SQL Agent Sunday</span></div>
+  </div>
+
+  <!-- MPKCG -->
+  <div class="project-card">
+    <div class="priority-bar bar-purple"></div>
+    <div class="card-header">
+      <div>
+        <div class="client">MPKCG</div>
+        <div class="type">PracticeOS · Accounting Agent Platform</div>
+      </div>
+      <div>
+        <span class="badge badge-purple"><span class="badge-dot"></span>Build</span>
+      </div>
+    </div>
+    <div class="desc">Custom Financial Cents replacement. 6-agent AI ops platform. $5K/mo subscription. Discovery call pending.</div>
+    <div class="meta">
+      <div class="meta-row"><span class="mk">Model</span><span class="mv">$5K/mo SaaS</span></div>
+      <div class="meta-row"><span class="mk">Est. Value</span><span class="mv">$60K/yr → $480K ARR at scale</span></div>
+      <div class="meta-row"><span class="mk">Agent Sprint</span><span class="mv">Follow-Up Agent → Sunday</span></div>
+      <div class="meta-row"><span class="mk">Instance</span><span class="mv">Private OpenClaw</span></div>
+    </div>
+    <div class="next">Next → <span>Schedule discovery call · ship V1 agent Sunday</span></div>
+  </div>
+
+  <!-- Eventive -->
+  <div class="project-card">
+    <div class="priority-bar bar-blue"></div>
+    <div class="card-header">
+      <div>
+        <div class="client">Eventive</div>
+        <div class="type">E2E Business Automation · AI Agents</div>
+      </div>
+      <div>
+        <span class="badge badge-blue"><span class="badge-dot"></span>In Dev</span>
+      </div>
+    </div>
+    <div class="desc">E2E business function automation via AI agents. Built with Sarmad. Agent V1 ships Sunday.</div>
+    <div class="meta">
+      <div class="meta-row"><span class="mk">Partner</span><span class="mv">Sarmad</span></div>
+      <div class="meta-row"><span class="mk">Est. Value</span><span class="mv">$48K–$72K/yr</span></div>
+      <div class="meta-row"><span class="mk">Agent Sprint</span><span class="mv">Eventive Agent → Sunday</span></div>
+      <div class="meta-row"><span class="mk">Instance</span><span class="mv">Private OpenClaw</span></div>
+    </div>
+    <div class="next">Next → <span>Lock scope with Sarmad · ship Sunday</span></div>
+  </div>
+
+  <!-- Ibrahim Algahim -->
+  <div class="project-card">
+    <div class="priority-bar bar-yellow"></div>
+    <div class="card-header">
+      <div>
+        <div class="client">Ibrahim Algahim</div>
+        <div class="type">Wholesale Distribution · ERP</div>
+      </div>
+      <div>
+        <span class="badge badge-yellow"><span class="badge-dot"></span>Negotiation</span>
+      </div>
+    </div>
+    <div class="desc">Wholesale distribution AI/ERP solution. Pending further discussion. Strong signal — pursue actively.</div>
+    <div class="meta">
+      <div class="meta-row"><span class="mk">Deck</span><span class="mv">ERP Discovery PDF sent ✓</span></div>
+      <div class="meta-row"><span class="mk">Est. Value</span><span class="mv">$60K–$100K/yr</span></div>
+      <div class="meta-row"><span class="mk">Discovery</span><span class="mv">Scheduled</span></div>
+    </div>
+    <div class="next">Next → <span>Follow up · schedule next discussion</span></div>
+  </div>
+
+  <!-- Ibrahim Alaeli -->
+  <div class="project-card">
+    <div class="priority-bar bar-blue"></div>
+    <div class="card-header">
+      <div>
+        <div class="client">Ibrahim Alaeli</div>
+        <div class="type">Produce Distribution · AI Proposal</div>
+      </div>
+      <div>
+        <span class="badge badge-blue"><span class="badge-dot"></span>Discovery</span>
+      </div>
+    </div>
+    <div class="desc">Produce distribution AI solution. Strong use case identified. Proposal being built now.</div>
+    <div class="meta">
+      <div class="meta-row"><span class="mk">Vertical</span><span class="mv">Food/Produce Distribution</span></div>
+      <div class="meta-row"><span class="mk">Est. Value</span><span class="mv">TBD</span></div>
+      <div class="meta-row"><span class="mk">Proposal</span><span class="mv">In progress</span></div>
+    </div>
+    <div class="next">Next → <span>Complete and send proposal</span></div>
+  </div>
+
+  <!-- AAMCO -->
+  <div class="project-card">
+    <div class="priority-bar bar-red"></div>
+    <div class="card-header">
+      <div>
+        <div class="client">AAMCO Oakland</div>
+        <div class="type">AI Operations · Custom Proposal</div>
+      </div>
+      <div>
+        <span class="badge badge-red"><span class="badge-dot"></span>Overdue</span>
+      </div>
+    </div>
+    <div class="desc">Custom proposal overdue since Mar 17 meeting. Decks ready. Proposal must go out immediately.</div>
+    <div class="meta">
+      <div class="meta-row"><span class="mk">Decks</span><span class="mv">9-slide + 10-slide ready ✓</span></div>
+      <div class="meta-row"><span class="mk">Est. Value</span><span class="mv">$36K–$60K/yr</span></div>
+      <div class="meta-row"><span class="mk">Days Overdue</span><span class="mv" style="color:var(--red)">36 days</span></div>
+    </div>
+    <div class="next">Next → <span>Send proposal TODAY</span></div>
+  </div>
+
+  <!-- Abe/CarsXE -->
+  <div class="project-card">
+    <div class="priority-bar bar-blue"></div>
+    <div class="card-header">
+      <div>
+        <div class="client">Abe @ CarsXE</div>
+        <div class="type">Partnership · Ops/Sales/Marketing Automation</div>
+      </div>
+      <div>
+        <span class="badge badge-blue"><span class="badge-dot"></span>Discovery</span>
+      </div>
+    </div>
+    <div class="desc">Partnership pitch for ops, marketing, and sales automation. Abe investing heavily in AI — strong fit.</div>
+    <div class="meta">
+      <div class="meta-row"><span class="mk">Type</span><span class="mv">Partnership / Client hybrid</span></div>
+      <div class="meta-row"><span class="mk">Est. Value</span><span class="mv">TBD</span></div>
+      <div class="meta-row"><span class="mk">Status</span><span class="mv">In conversation</span></div>
+    </div>
+    <div class="next">Next → <span>Pitch partnership formally</span></div>
+  </div>
+
+  <!-- Revival Group Instance -->
+  <div class="project-card">
+    <div class="priority-bar bar-green"></div>
+    <div class="card-header">
+      <div>
+        <div class="client">Revival Group</div>
+        <div class="type">Internal · Private OpenClaw Sandbox</div>
+      </div>
+      <div>
+        <span class="badge badge-green"><span class="badge-dot"></span>Sprint</span>
+      </div>
+    </div>
+    <div class="desc">RG private OpenClaw instance for live use case exploration and prospect demos. Ships this weekend.</div>
+    <div class="meta">
+      <div class="meta-row"><span class="mk">Purpose</span><span class="mv">Demo sandbox + internal ops</span></div>
+      <div class="meta-row"><span class="mk">Launch</span><span class="mv">Sunday Apr 27</span></div>
+      <div class="meta-row"><span class="mk">Owner</span><span class="mv">Reshad + Sarmad</span></div>
+    </div>
+    <div class="next">Next → <span>Provision instance · load demo agents</span></div>
+  </div>
+
+</div>
+
+<!-- AGENT SPRINT TABLE -->
+<div class="section-label">⚡ Weekend Agent Sprint — Ship by Sunday Apr 27</div>
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Agent</th>
+        <th>Client</th>
+        <th>Instance</th>
+        <th>Primary Function</th>
+        <th>Status</th>
+        <th>Owner</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div class="task-name">SQL Generator Agent</div>
+          <div class="task-sub">Natural language → SQL + results</div>
+        </td>
+        <td>Bloom Real Estate</td>
+        <td><span class="badge badge-blue"><span class="badge-dot"></span>Private OpenClaw</span></td>
+        <td>Lead data queries via natural language</td>
+        <td><span class="badge badge-yellow"><span class="badge-dot"></span>In Sprint</span></td>
+        <td>TBD w/ Sarmad</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="task-name">Eventive Agent</div>
+          <div class="task-sub">E2E event ops automation</div>
+        </td>
+        <td>Eventive</td>
+        <td><span class="badge badge-blue"><span class="badge-dot"></span>Private OpenClaw</span></td>
+        <td>Scope TBD — lock with Sarmad</td>
+        <td><span class="badge badge-yellow"><span class="badge-dot"></span>Scope Pending</span></td>
+        <td>Sarmad</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="task-name">Practice Agent V1</div>
+          <div class="task-sub">Client Follow-Up · autonomous ops</div>
+        </td>
+        <td>MPKCG</td>
+        <td><span class="badge badge-blue"><span class="badge-dot"></span>Private OpenClaw</span></td>
+        <td>Autonomous client document follow-up</td>
+        <td><span class="badge badge-yellow"><span class="badge-dot"></span>In Sprint</span></td>
+        <td>TBD w/ Sarmad</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="task-name">RG Sandbox Instance</div>
+          <div class="task-sub">Internal demo + exploration env</div>
+        </td>
+        <td>Revival Group</td>
+        <td><span class="badge badge-green"><span class="badge-dot"></span>Private OpenClaw</span></td>
+        <td>Prospect demos · live use case testing</td>
+        <td><span class="badge badge-yellow"><span class="badge-dot"></span>In Sprint</span></td>
+        <td>Reshad + Sarmad</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- SITE DEPLOY STATUS -->
+<div class="section-label">Infrastructure & Site</div>
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Status</th>
+        <th>Blocker</th>
+        <th>Next Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div class="task-name">revivalgroup.ai — New Site</div>
+          <div class="task-sub">marketing/revivalgroup-site/index.html · 29KB · ready</div>
+        </td>
+        <td><span class="badge badge-yellow"><span class="badge-dot"></span>Ready to Deploy</span></td>
+        <td>Needs handoff to Sarmad</td>
+        <td>Send file → Sarmad deploys</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="task-name">Gmail OAuth — reshad@revivalgroup.ai</div>
+          <div class="task-sub">Auth URL generated · pending completion</div>
+        </td>
+        <td><span class="badge badge-red"><span class="badge-dot"></span>Blocked</span></td>
+        <td>Reshad must complete auth flow</td>
+        <td>Complete OAuth in browser</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="task-name">Cold Email Outbound</div>
+          <div class="task-sub">Apollo.io list + Instantly.ai domain warmup</div>
+        </td>
+        <td><span class="badge badge-red"><span class="badge-dot"></span>Not Started</span></td>
+        <td>Setup pending</td>
+        <td>Configure Apollo + Instantly</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="task-name">LinkedIn Company Page</div>
+          <div class="task-sub">3x daily posts running · 250 invite connections pending</div>
+        </td>
+        <td><span class="badge badge-green"><span class="badge-dot"></span>Live</span></td>
+        <td>Reshad to invite 250 connections</td>
+        <td>Reshad: invite from admin</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="footer">
+  <div>Revival Group · Project Command Center · Confidential</div>
+  <div>Last updated: Apr 22, 2026 · <a href="https://revivalgroup.ai" style="color:var(--blue)">revivalgroup.ai</a></div>
+</div>
+
+</body>
+</html>
